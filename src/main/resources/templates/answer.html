@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>結果発表</title>
+</head>
+
+<style>
+    body {
+        font-family: sans-serif;
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    button {
+        font-size: 1.1em;
+        padding: 14px 20px;
+        margin: 8px 0;
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        background-color: #f5a25d;
+        color: white;
+    }
+    a {
+        text-decoration: none;
+        display: block;
+    }
+</style>
+
+<body>
+<div th:if="${isCorrect}">
+    <h1>🎉 正解!🎉</h1>
+    <p>2人の旅行先は「岐阜県」です!</p>
+    <a href="/plan"><button>旅のしおりを見る</button></a>
+</div>
+
+<div th:unless="${isCorrect}">
+    <h1>😢 中部地方の県だよ！</h1>
+    <a href="/quiz"><button>もう一回選ぶ</button></a>
+</div>
+</body>
+</html>

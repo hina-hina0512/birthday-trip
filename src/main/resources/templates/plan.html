@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅のしおり</title>
+    <style>
+        body {
+            font-family: "Hiragino Maru Gothic Pro", "Yu Gothic", sans-serif;
+            background-color: #fdf6e3;
+            padding: 20px;
+        }
+        .shiori {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fffdf5;
+            border: 3px dashed #e0a458;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        h1 {
+            text-align: center;
+            color: #d17b3c;
+        }
+        .day {
+            margin-top: 24px;
+            border-top: 2px solid #e0a458;
+            padding-top: 12px;
+        }
+        .day-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #d17b3c;
+            margin-bottom: 8px;
+        }
+        .spot {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        .spot::before {
+            content: "🚗";
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="shiori">
+    <h1>📖 旅のしおり 📖</h1>
+    <p style="text-align:center;">2人の岐阜旅行、いってきます!</p>
+
+    <div class="day">
+        <div class="day-title">1日目</div>
+        <div class="spot">八王子の自宅を出発🚙</div>
+        <div class="spot">平湯温泉「三蔵庵」に車を置く</div>
+        <div class="spot">上高地を観光</div>
+        <div class="spot">三蔵庵にチェックイン</div>
+    </div>
+
+    <div class="day">
+        <div class="day-title">2日目</div>
+        <div class="spot">三蔵庵をチェックアウト</div>
+        <div class="spot">乗鞍畳平を観光</div>
+        <div class="spot">高山の街を散策</div>
+        <div class="spot">さなちゃんのお家まで送って解散</div>
+    </div>
+</div>
+</body>
+</html>
