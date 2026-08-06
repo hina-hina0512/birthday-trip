@@ -18,6 +18,30 @@ public class HomeController {
         return "quiz";
     }
 
+    @GetMapping("/trivia1")
+    public String trivia1() {
+        return "trivia1" ;
+    }
+
+    @GetMapping("/quiz2")
+    public String quiz2() {
+        return "quiz2";
+    }
+
+    @GetMapping("/trivia2")
+    public String trivia2() {
+        return "trivia2";
+    }
+
+    @GetMapping("/quiz3")
+    public String quiz3() {
+        return "quiz3" ;
+    }
+
+    @GetMapping("/trivia3")
+    public String trivia3() {
+        return "trivia3" ;
+    }
     @GetMapping("/answer")
     public String answer(@RequestParam String choice, Model model) {
         boolean isCorrect = choice.equals("gifu");

@@ -5,65 +5,400 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>旅のしおり</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=EB+Garamond:wght@400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: "Hiragino Maru Gothic Pro", "Yu Gothic", sans-serif;
-            background-color: #fdf6e3;
-            padding: 20px;
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: #f3ede0;
+            padding: 30px 12px;
         }
-        .shiori {
-            max-width: 500px;
+
+        .book {
+            max-width: 640px;
             margin: 0 auto;
-            background-color: #fffdf5;
-            border: 3px dashed #e0a458;
-            border-radius: 16px;
-            padding: 24px;
+            background-color: #fdfaf2;
+            border-radius: 20px;
+            padding: 28px 20px 40px;
+            box-shadow: 0 12px 30px rgba(120, 90, 60, 0.15);
+            position: relative;
         }
-        h1 {
-            text-align: center;
-            color: #d17b3c;
-        }
-        .day {
-            margin-top: 24px;
-            border-top: 2px solid #e0a458;
-            padding-top: 12px;
-        }
-        .day-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #d17b3c;
-            margin-bottom: 8px;
-        }
-        .spot {
+
+        /* ヘッダー */
+        .header {
             display: flex;
             align-items: center;
-            margin: 8px 0;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
         }
-        .spot::before {
-            content: "🚗";
-            margin-right: 8px;
+
+        .polaroid {
+            background: #fff;
+            padding: 6px 6px 24px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            width: 130px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .polaroid.left { transform: rotate(-6deg); }
+        .polaroid.right { transform: rotate(6deg); }
+        .polaroid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+        }
+        .polaroid .cap {
+            text-align: center;
+            font-size: 0.65em;
+            color: #6b5a4a;
+            margin-top: 6px;
+        }
+        .tape {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-4deg);
+            width: 44px;
+            height: 18px;
+            background: rgba(150, 200, 150, 0.55);
+        }
+        .polaroid.right .tape { transform: translateX(-50%) rotate(4deg); background: rgba(230,150,160,0.5); }
+
+        .title-block { text-align: center; flex-shrink: 0; }
+        .subtitle-icons {
+            font-size: 0.75em;
+            color: #7a9b6f;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: 900;
+            color: #4a6b4a;
+            letter-spacing: 0.05em;
+            margin: 2px 0;
+        }
+        .trip-name { font-size: 0.85em; color: #8a7a6a; margin-bottom: 6px; }
+        .tagline { font-size: 0.8em; color: #c98a8a; }
+
+        /* タイムライン */
+        .timeline { position: relative; margin-top: 10px; }
+
+        .day-block { position: relative; padding-left: 34px; margin-bottom: 28px; }
+
+        .day-badge {
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .day1 { background-color: #e79aa0; }
+        .day2 { background-color: #8fbf8a; }
+
+        .day-heading1 {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #e79aa0;
+            margin: 4px 0 14px 66px;
+            border-bottom: 2px dashed #e6d9c8;
+            padding-bottom: 8px;
+        }
+        .day-heading2 {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #8fbf8a;
+            margin: 4px 0 14px 66px;
+            border-bottom: 2px dashed #e6d9c8;
+            padding-bottom: 8px;
+        }
+        .spot-list {
+            margin-left: 62px;
+            border-left: 2px dotted #d8cbb8;
+            padding-left: 18px;
+        }
+
+        .spot {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 0;
+            flex-wrap: wrap;
+        }
+
+        .time {
+            flex-shrink: 0;
+            font-family: 'EB Garamond', serif;
+            font-weight: 600;
+            font-size: 0.8em;
+            color: #b98a8a;
+            background-color: #fbeaea;
+            padding: 3px 10px;
+            border-radius: 14px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .icon-badge {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: #eef3e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+        }
+
+        .spot-body { flex: 1; min-width: 140px; }
+        .spot-title { font-size: 0.85em; color: #444; font-weight: 500; }
+        .spot-comment { font-size: 0.72em; color: #b0977f; margin-top: 2px; }
+
+        .spot-photo {
+            width: 100%;
+            max-width: 130px;
+            margin-top: 6px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+        .spot-photo img { width: 100%; display: block; }
+
+        /* 付箋メモ */
+        .notes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px 0 20px;
+        }
+        .note {
+            width: 150px;
+            padding: 14px 12px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            color: #5a4a3f;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .note-green { background-color: #eaf2e3; }
+        .note-pink { background-color: #fbeaea; }
+        .note-blue { background-color: #e6f0f2; }
+        .note ul { list-style: none; margin-top: 6px; }
+        .note li { margin-bottom: 4px; }
+        .note li::before { content: "✓ "; color: #8fbf8a; }
+
+        .closing {
+            text-align: center;
+            font-size: 0.85em;
+            color: #8a7a6a;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-<div class="shiori">
-    <h1>📖 旅のしおり 📖</h1>
-    <p style="text-align:center;">2人の岐阜旅行、いってきます!</p>
+<div class="book">
 
-    <div class="day">
-        <div class="day-title">1日目</div>
-        <div class="spot">八王子の自宅を出発🚙</div>
-        <div class="spot">平湯温泉「三蔵庵」に車を置く</div>
-        <div class="spot">上高地を観光</div>
-        <div class="spot">三蔵庵にチェックイン</div>
+    <div class="header">
+        <div class="polaroid left">
+            <div class="tape"></div>
+            <img src="/images/kamikochi-cover.jpg" alt="上高地の絶景">
+            <div class="cap">上高地の絶景</div>
+        </div>
+        <div class="title-block">
+            <div class="subtitle-icons">自然 ・ 温泉 ・ 絶景 ・ おいしいもの</div>
+            <h1>旅のしおり</h1>
+            <div class="trip-name">2人のお誕生日旅行</div>
+            <div class="tagline">最高の思い出をつくろう ♡</div>
+        </div>
+        <div class="polaroid right">
+            <div class="tape"></div>
+            <img src="/images/hirayu-cover.jpg" alt="平湯温泉">
+            <div class="cap">平湯温泉でゆったり</div>
+        </div>
     </div>
 
-    <div class="day">
-        <div class="day-title">2日目</div>
-        <div class="spot">三蔵庵をチェックアウト</div>
-        <div class="spot">乗鞍畳平を観光</div>
-        <div class="spot">高山の街を散策</div>
-        <div class="spot">さなちゃんのお家まで送って解散</div>
+    <div class="timeline">
+
+        <div class="day-block">
+            <div class="day-badge day1">DAY<br>1</div>
+            <div class="day-heading1">自然に癒されて、温泉でほっと一息</div>
+            <div class="spot-list">
+                <div class="spot">
+                    <div class="time">8:00</div>
+                    <div class="icon-badge">🚗</div>
+                    <div class="spot-body">
+                        <div class="spot-title">八王子を出発</div>
+                        <div class="spot-comment">いよいよ出発！</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">13:30</div>
+                    <div class="icon-badge">🅿️</div>
+                    <div class="spot-body">
+                        <div class="spot-title">あかんだな駐車場に到着</div>
+                        <div class="spot-comment">ここからはシャトルバスで上高地へ</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">14:30</div>
+                    <div class="icon-badge">🏞️</div>
+                    <div class="spot-body">
+                        <div class="spot-title">上高地に到着・観光</div>
+                        <div class="spot-comment">河童橋や穂高連峰をのんびり散策</div>
+                        <div class="spot-photo"><img src="/images/kamikochi.jpg" alt="上高地"></div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">17:55</div>
+                    <div class="icon-badge">🚌</div>
+                    <div class="spot-body">
+                        <div class="spot-title">上高地からバス出発</div>
+                        <div class="spot-comment">夕暮れの景色も素敵だよ</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">18:40</div>
+                    <div class="icon-badge">♨️</div>
+                    <div class="spot-body">
+                        <div class="spot-title">平湯温泉「三蔵庵」に到着</div>
+                        <div class="spot-comment">おつかれさま!温泉で旅の疲れをリセット</div>
+                        <div class="spot-photo"><img src="/images/hirayu.jpg" alt="平湯温泉"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="day-block">
+            <div class="day-badge day2">DAY<br>2</div>
+            <div class="day-heading2">絶景と高山で、思い出いっぱいの1日</div>
+            <div class="spot-list">
+                <div class="spot">
+                    <div class="time">9:00</div>
+                    <div class="icon-badge">🧳</div>
+                    <div class="spot-body">
+                        <div class="spot-title">三蔵庵をチェックアウト</div>
+                        <div class="spot-comment">朝の空気も気持ちいい</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">9:35</div>
+                    <div class="icon-badge">🚌</div>
+                    <div class="spot-body">
+                        <div class="spot-title">バス乗車(平湯→乗鞍畳平)</div>
+                        <div class="spot-comment">標高2,700mの絶景へ</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">10:40</div>
+                    <div class="icon-badge">⛰️</div>
+                    <div class="spot-body">
+                        <div class="spot-title">乗鞍畳平に到着・観光</div>
+                        <div class="spot-comment">大自然のパノラマを満喫</div>
+                        <div class="spot-photo"><img src="/images/norikura.jpg" alt="乗鞍畳平"></div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">13:55</div>
+                    <div class="icon-badge">🚌</div>
+                    <div class="spot-body">
+                        <div class="spot-title">バス出発(乗鞍畳平→平湯)</div>
+                        <div class="spot-comment">乗鞍ばいば～い</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">15:00</div>
+                    <div class="icon-badge">🚏</div>
+                    <div class="spot-body">
+                        <div class="spot-title">平湯バスターミナル到着</div>
+                        <div class="spot-comment">高山へ出発</div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">16:00</div>
+                    <div class="icon-badge">🚶</div>
+                    <div class="spot-body">
+                        <div class="spot-title">高山の街を散策</div>
+                        <div class="spot-comment">古い町並みや食べ歩きを楽しもう</div>
+                        <div class="spot-photo"><img src="/images/takayama.jpg" alt="高山の街並み"></div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">19:00</div>
+                    <div class="icon-badge">🥩</div>
+                    <div class="spot-body">
+                        <div class="spot-title">高山を出発</div>
+                        <div class="spot-comment">おいしい思い出と一緒に帰路へ</div>
+                        <div class="spot-photo"><img src="/images/sukiyaki.jpg" alt="飛騨牛"></div>
+                    </div>
+                </div>
+                <div class="spot">
+                    <div class="time">23:00</div>
+                    <div class="icon-badge">🏠</div>
+                    <div class="spot-body">
+                        <div class="spot-title">さなちゃんの家に到着！</div>
+                        <div class="spot-comment">楽しい旅の思い出になりますように！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <div class="notes">
+        <div class="note note-green">
+            <strong>旅のポイント</strong>
+            <ul>
+                <li>自然をたっぷり満喫</li>
+                <li>温泉でリラックス</li>
+                <li>高山でおいしいもの探し</li>
+            </ul>
+        </div>
+        <div class="note note-pink">
+            <strong>持ち物リスト</strong>
+            <ul>
+                <li>歩きやすい靴</li>
+                <li>羽織るもの<br>(山は涼しいからね)</li>
+                <li>カメラ・スマホ</li>
+            </ul>
+        </div>
+        <div class="note note-blue">
+            <strong>たくさんの「感動」を見つけよう</strong>
+            <svg viewBox="0 0 140 90" style="width:100%; margin-top:10px;">
+                <path d="M20 75 L38 40 L56 75 Z" fill="none" stroke="#6b8f6b" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M28 75 L38 55 L48 75 Z" fill="none" stroke="#6b8f6b" stroke-width="2" stroke-linejoin="round"/>
+                <line x1="38" y1="75" x2="38" y2="82" stroke="#8a7057" stroke-width="2.5"/>
+
+                <line x1="70" y1="82" x2="70" y2="55" stroke="#8a7057" stroke-width="2.5"/>
+                <circle cx="70" cy="42" r="16" fill="none" stroke="#7fa87f" stroke-width="2.5"/>
+                <circle cx="60" cy="50" r="11" fill="none" stroke="#7fa87f" stroke-width="2.5"/>
+                <circle cx="80" cy="50" r="11" fill="none" stroke="#7fa87f" stroke-width="2.5"/>
+
+                <path d="M108 30 q6 -10 12 0 q6 -10 12 0 q0 12 -12 20 q-12 -8 -12 -20 Z"
+                      fill="none" stroke="#d99aa5" stroke-width="2.2" stroke-linejoin="round"/>
+
+                <circle cx="18" cy="20" r="1.6" fill="#d9b45a"/>
+                <circle cx="112" cy="15" r="1.6" fill="#d9b45a"/>
+                <circle cx="95" cy="65" r="1.6" fill="#d9b45a"/>
+            </svg>
+        </div>
+
+    <p class="closing">大切な時間が、ずっと心に残りますように ♡</p>
+
 </div>
 </body>
 </html>
